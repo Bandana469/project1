@@ -15,7 +15,7 @@ public class PropertyFile {
 
 
     public Properties getProperties() {
-       String propertyFilePath = "config/data.properties";
+       String propertyFilePath = "config/data_dev.properties";
         Properties properties = new Properties ( );
         try {
             // TODO: Add logic to throw error if property is invalid?

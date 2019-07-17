@@ -146,7 +146,7 @@ public class BaseTest extends PropertyFile {
         if (log == null) {
             // Initialize Log4j logs
             DOMConfigurator.configure (System.getProperty ("user.dir") + File.separator + "config" + File.separator + "log4j.xml");
-            log = Logger.getLogger ("MyLogger");
+            log = Logger.getLogger ("TestAutomation");
             log.info ("Logger is initialized..");
 
         }
