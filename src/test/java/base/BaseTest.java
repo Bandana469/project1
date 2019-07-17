@@ -57,6 +57,21 @@ public class BaseTest extends PropertyFile {
 
     }
 
+    @BeforeMethod()
+    public void beforeMethod(Method method) {
+        try {
+            log.info ("logger initialized*****************************************************************");
+            log.info ("logger *********" + this.getClass ( ).getPackage ( ).toString ( )
+                    .substring (this.getClass ( ).getPackage ( ).toString ( ).lastIndexOf (".") + 1) + "::"
+                    + this.getClass ( ).getSimpleName ( ) + "::" + method.getName ( ) + "*********");
+
+
+        } catch (Exception e) {
+            e.printStackTrace ( );
+            throw new RuntimeException ("Exception in Before Method" + e.getMessage ( ));
+        }
+
+    }
 
     @BeforeSuite
     public void initSuite() {
@@ -72,10 +87,7 @@ public class BaseTest extends PropertyFile {
         }
     }
 
-    @BeforeMethod()
-    public void beforeMethod(Method method) {
 
-    }
 
     @AfterMethod()
     public void afterMethod(ITestResult result) {
@@ -145,7 +157,7 @@ public class BaseTest extends PropertyFile {
     private void initLogs() {
         if (log == null) {
             // Initialize Log4j logs
-            DOMConfigurator.configure (System.getProperty ("user.dir") + File.separator + "config" + File.separator + "log4j.xml");
+            DOMConfigurator.configure (System.getProperty ("user.dir") + File.separator + "Resources" + File.separator + "log4j.properties");
             log = Logger.getLogger ("MyLogger");
             log.info ("Logger is initialized..");
 
