@@ -163,21 +163,7 @@ public abstract class TestBase {
 
 
 
-	@BeforeMethod()
-	public void beforeMethod(Method method) {
-		try {
-			log.info ("******************************************************************************");
-			log.info ("*********" + this.getClass ( ).getPackage ( ).toString ( )
-					.substring (this.getClass ( ).getPackage ( ).toString ( ).lastIndexOf (".") + 1) + "::"
-					+ this.getClass ( ).getSimpleName ( ) + "::" + method.getName ( ) + "*********");
 
-
-		} catch (Exception e) {
-			e.printStackTrace ( );
-			throw new RuntimeException ("Exception in Before Method" + e.getMessage ( ));
-		}
-
-	}
 
 	/**
 	* Define path for Screenshot file.
