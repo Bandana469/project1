@@ -3,6 +3,7 @@ package base;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
+import org.eclipse.jetty.util.log.Log;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -24,7 +25,7 @@ import java.util.Date;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.LogManager;
-
+import org.apache.log4j.Logger;
 
 public class BaseTest extends PropertyFile {
 
@@ -145,8 +146,9 @@ public class BaseTest extends PropertyFile {
     private void initLogs() {
         if (log == null) {
             // Initialize Log4j logs
-            DOMConfigurator.configure (System.getProperty ("user.dir") + File.separator + "config" + File.separator + "log4j.xml");
-            log = Logger.getLogger ("TestAutomation");
+//            DOMConfigurator.configure (System.getProperty ("user.dir") + File.separator + "config" + File.separator + "log4j.xml");
+            DOMConfigurator.configure ( "/config/log4j.xml");
+            log = Logger.getLogger (Log.class.getName());
             log.info ("Logger is initialized..");
 
         }
