@@ -24,6 +24,7 @@ public class SigninTests extends BaseTest {
 
     @BeforeClass
     public void setUp() throws Exception {
+
         driver = getDriver ( );
         login = new SigninPage (driver);
        //homePage = new HomePage (driver);

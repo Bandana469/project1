@@ -27,6 +27,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.LogManager;
 import org.apache.log4j.Logger;
 
+import static base.TestBase.log;
+
 public class BaseTest extends PropertyFile {
 
 
@@ -40,8 +42,8 @@ public class BaseTest extends PropertyFile {
 
 
     public WebDriver getDriver() {
+        initLogs();
         webDriver = driverHelper.getDriver ( );
-        initLogs ( );
         return webDriver;
     }
 
@@ -142,17 +144,21 @@ public class BaseTest extends PropertyFile {
             return null;
         }
     }
-
     private void initLogs() {
-        if (log == null) {
+//        if (log == null) {
             // Initialize Log4j logs
-//            DOMConfigurator.configure (System.getProperty ("user.dir") + File.separator + "config" + File.separator + "log4j.xml");
-            DOMConfigurator.configure ( "/config/log4j.xml");
-            log = Logger.getLogger (Log.class.getName());
+            //System.setProperty("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.Jdk14Logger");
+            System.out.println(System.getProperty ("user.dir") + File.separator + "config" + File.separator + "log4j.xml");
+            DOMConfigurator.configure (System.getProperty ("user.dir") + File.separator + "config" + File.separator + "log4j.xml");
+//            DOMConfigurator.configure ( "config/log4j.xml");
+
+            log = Logger.getLogger ("AutomationExecution");
             log.info ("Logger is initialized..");
 
-        }
+//        }
     }
+
+
 
 
 }

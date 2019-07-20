@@ -45,25 +45,42 @@ public class SigninPage extends BasePage {
     @FindBy(xpath="//*[@id=\"contentheader\"]")
     private WebElement agreement;
 
+    //orange hrm sample website
+    @FindBy(xpath ="//*[@id=\"txtUsername\"]")
+    private WebElement txtUserName;
+    @FindBy(xpath ="//*[@id=\"txtPassword\"]")
+    private WebElement txtPassword;
+    @FindBy(id ="btnLogin")
+    private WebElement btnLogin;
+
 
 
 
 
     public void login(String username, String password) throws InterruptedException {
-        usernamefield.click();
+   /*     usernamefield.click();
 
         usernamefield.sendKeys(username);
         Thread.sleep(8000);
-        System.out.println ("I entered username");
+        log.info("I entered username");
         passwordField.click();
         passwordField.sendKeys(password);
 
-        System.out.println ("I entered pass");
+        log.info("I entered pass");
      wait.until (ExpectedConditions.elementToBeClickable (loginButton));
       loginButton.click();
 
         log.info(" i am logging in");
-        System.out.println ("I clicked logged in");
+        System.out.println ("I clicked logged in");*/
+
+
+   //hrms login function
+//        Thread.sleep(10000);
+        txtUserName.click();
+        txtUserName.sendKeys("Admin");
+        txtPassword.sendKeys("admin123");
+        btnLogin.click();
+        log.info("Clicked on Login button");
 
     }
 

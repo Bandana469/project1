@@ -2,7 +2,9 @@ package base;
 
 
 
-import jdk.internal.instrumentation.Logger;
+import org.apache.log4j.Logger;
+import org.apache.log4j.xml.DOMConfigurator;
+import org.eclipse.jetty.util.log.Log;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -11,6 +13,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import util.PropertyFile;
+import util.WaitHelper;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -22,7 +25,8 @@ import java.util.concurrent.TimeUnit;
 public class DriverHelper extends PropertyFile {
     private WebDriver driver;
     private Properties properties = getProperties ( );
-
+    public Logger log = Logger.getLogger(DriverHelper.class);
+    WaitHelper wait ;
 
     public WebDriver getDriver() {
         //System.out.println ("Tests are being run for : " + driverName);
@@ -39,11 +43,15 @@ public class DriverHelper extends PropertyFile {
                     driver = getFireFoxDriver ( );
                 }
             }
+            initLogs();
         } catch (Exception ex) {
             ex.printStackTrace ( );
         }
-        //String URL = (String.format ("http://%s", properties.getProperty ("base.url")));
-        driver.get (properties.getProperty ("base.url"));
+        wait = new WaitHelper(driver);
+        String URL = (String.format ("https://%s", properties.getProperty ("base.url")));
+        log.info("Navigate to url "+URL);
+        driver.get (URL);
+        wait.waitForPageToLoad();
         driver.manage ( ).timeouts ( ).pageLoadTimeout (10, TimeUnit.SECONDS);
         return driver;
     }
@@ -87,6 +95,24 @@ public class DriverHelper extends PropertyFile {
                 driver.quit ( );
                 driver = null;
             }
+
+
+    private void initLogs() {
+        if (log == null) {
+            // Initialize Log4j logs
+            System.setProperty("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.Jdk14Logger");
+            System.out.println(System.getProperty ("user.dir") + File.separator + "config" + File.separator + "log4j.xml");
+            DOMConfigurator.configure (System.getProperty ("user.dir") + File.separator + "config" + File.separator + "log4j.xml");
+//            DOMConfigurator.configure ( "config/log4j.xml");
+
+            log = Logger.getLogger (Log.class.getName());
+            log.info ("Logger is initialized..");
+
         }
+    }
+
+
+}
+
 
 
